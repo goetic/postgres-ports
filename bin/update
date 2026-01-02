@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+get_arch() {
+  echo "$(uname -p)"
+}
+
+main() {
+  local arch="$(get_arch)"
+
+  poudriere ports -u
+  poudriere jail -u -j "143${arch}"
+  poudriere jail -u -j "150${arch}"
+}
+
+main
