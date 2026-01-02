@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+get_arch() {
+  echo "$(uname -p)"
+}
+
+main() {
+  local arch="$(get_arch)"
+
+  echo "== Cleaning packages…" >&2
+  poudriere pkgclean -A -y -j "143${arch}"
+  poudriere pkgclean -A -y -j "150${arch}"
+  echo
+
+  echo "== Building 14.3-RELEASE…" >&2
+  poudriere bulk -f packages-default -O postgres -j "143${arch}"
+  echo
+
+  echo "== Building 15.0-RELEASE…" >&2
+  poudriere bulk -f packages-default -O postgres -j "150${arch}"
+}
+
+main
