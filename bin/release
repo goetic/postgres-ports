@@ -1,0 +1,70 @@
+#!/usr/bin/env sh
+
+get_arch() {
+  echo "$(uname -p)"
+}
+
+upload_packages() {
+  local version=$1
+  local jail=$2
+  local arch=$3
+
+  aws s3 sync --delete \
+    "/usr/local/poudriere/data/packages/${jail}-default/.latest/" \
+    "s3://goetic-pkg/postgres/freebsd/FreeBSD:${version}:${arch}/latest/"
+}
+
+usage() {
+  cat << EOF
+Usage: $0
+
+This script requires the following environment variables to be set:
+
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- AWS_DEFAULT_REGION
+EOF
+}
+
+validate_env() {
+  if [ -z "${AWS_ACCESS_KEY_ID}" ]; then
+    echo "Error! Missing env: AWS_ACCESS_KEY_ID" >&2
+    return 1
+  fi
+  if [ -z "${AWS_SECRET_ACCESS_KEY}" ]; then
+    echo "Error! Missing env: AWS_SECRET_ACCESS_KEY" >&2
+    return 1
+  fi
+  if [ -z "${AWS_DEFAULT_REGION}" ]; then
+    echo "Error! Missing env: AWS_DEFAULT_REGION" >&2
+    return 1
+  fi
+}
+
+main() {
+  local arch="$(get_arch)"
+
+  if ! validate_env; then
+    usage
+    exit 1
+  fi
+
+  echo "== Building packages…" >&2
+  ./bin/build
+  echo
+
+  echo "== Cleaning logs…" >&2
+  poudriere logclean -y -a -j "143${arch}"
+  poudriere logclean -y -a -j "150${arch}"
+  echo
+
+  echo "== Uploading 14.3-RELEASE packages…" >&2
+  upload_packages "14" "143${arch}" "${arch}"
+  echo
+
+  echo "== Uploading 15.0-RELEASE packages…" >&2
+  upload_packages "15" "150${arch}" "${arch}"
+  echo
+}
+
+main
