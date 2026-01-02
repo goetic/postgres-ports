@@ -1,0 +1,81 @@
+#!/usr/bin/env sh
+
+set -e
+
+create_postgres_port() {
+  poudriere ports -c -f postgres -m null -M "$(pwd)" -p postgres
+}
+
+create_default_port() {
+  poudriere ports -c
+}
+
+create_jail()  {
+  local release=$1
+  local name=$2
+  local jail_arch=$3
+
+  poudriere jail -c -j "${name}" -v "${release}" -a "${jail_arch}"
+}
+
+get_arch() {
+  echo "$(uname -p)"
+}
+
+get_jails() {
+  echo "$(poudriere jail -l)"
+}
+
+get_jail_arch() {
+  local arch=$1
+
+  if [ "${arch}" == "amd64" ]; then
+    echo "${arch}"
+    return 0
+  elif [ "${arch}" == "aarch64" ]; then
+    echo "arm64.aarch64"
+    return 0
+  fi
+  return 1
+}
+
+get_ports() {
+  echo "$(poudriere ports -l)"
+}
+
+main() {
+  local arch="$(get_arch)"
+  local jails="$(get_jails)"
+  local jail_arch="$(get_jail_arch "${arch}")"
+  local ports="$(get_ports)"
+
+  if ! echo "${ports}" | grep -q "default"; then
+    echo "Creating port: default…" >&2
+    create_default_port
+  else
+    echo "Creating port: default…             [skipped]" >&2
+  fi
+
+  if ! echo "${ports}" | grep -q "postgres"; then
+    echo "Creating port: postgres…" >&2
+    create_postgres_port
+  else
+    echo "Creating port: postgres…            [skipped]" >&2
+  fi
+
+  if ! echo "${jails}" | grep -q "14.3-RELEASE"; then
+    echo "Creating jail: 14.3-RELEASE…" >&2
+    create_jail "14.3-RELEASE" "143${arch}" "${jail_arch}"
+  else
+    echo "Creating jail: 14.3-RELEASE…        [skipped]" >&2
+  fi
+
+  if ! echo "${jails}" | grep -q "15.0-RELEASE"; then
+    echo "Creating jail: 15.0-RELEASE…" >&2
+    create_jail "15.0-RELEASE" "150${arch}" "${jail_arch}"
+  else
+    echo "Creating jail: 15.0-RELEASE…        [skipped]" >&2
+  fi
+}
+
+main
