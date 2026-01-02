@@ -7,9 +7,17 @@ get_arch() {
 main() {
   local arch="$(get_arch)"
 
+  echo "== Updating default ports tree…" >&2
   poudriere ports -u
+  echo
+
+  echo "== Updating 14.2-RELEASE jail…" >&2
   poudriere jail -u -j "143${arch}"
+  echo
+
+  echo "== Updating 15.0-RELEASE jail…" >&2
   poudriere jail -u -j "150${arch}"
+  echo
 }
 
 main

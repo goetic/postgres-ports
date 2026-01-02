@@ -7,9 +7,7 @@ get_arch() {
 main() {
   local arch="$(get_arch)"
 
-  echo "== Cleaning packages…" >&2
-  poudriere pkgclean -A -y -j "143${arch}"
-  poudriere pkgclean -A -y -j "150${arch}"
+  ./bin/update
   echo
 
   echo "== Building 14.3-RELEASE…" >&2
