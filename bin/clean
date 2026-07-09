@@ -7,11 +7,11 @@ get_arch() {
 main() {
   local arch="$(get_arch)"
 
-  poudriere logclean -y -a -j "143${arch}"
-  poudriere logclean -y -a -j "150${arch}"
+  poudriere logclean -y -a -j "144${arch}"
+  poudriere logclean -y -a -j "151${arch}"
 
-  poudriere pkgclean -y -A -j "143${arch}"
-  poudriere pkgclean -y -A -j "150${arch}"
+  poudriere pkgclean -y -A -j "144${arch}"
+  poudriere pkgclean -y -A -j "151${arch}"
 }
 
 main

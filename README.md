@@ -46,15 +46,15 @@ pkg search pgbackrest
 ## Development
 
 ``` shell
-poudreire jail -c -j 143amd64 -v 14.3-RELEASE -a amd64
-poudreire jail -c -j 143aarch64 -v 14.3-RELEASE -a arm64.aarch64
+poudreire jail -c -j 144amd64 -v 14.4-RELEASE -a amd64
+poudreire jail -c -j 144aarch64 -v 14.4-RELEASE -a arm64.aarch64
 
 poudriere ports -c
 poudriere ports -c -f postgres -m null -M /workspace/github/goetic/postgres-ports -p postgres
 ```
 
 ``` shell
-poudriere bulk -j 143amd64 -O postgres -f packages-default
+poudriere bulk -j 144amd64 -O postgres -f packages-default
 ```
 
 ``` shell

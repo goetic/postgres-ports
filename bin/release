@@ -54,16 +54,16 @@ main() {
   echo
 
   echo "== Cleaning logs…" >&2
-  poudriere logclean -y -a -j "143${arch}"
-  poudriere logclean -y -a -j "150${arch}"
+  poudriere logclean -y -a -j "144${arch}"
+  poudriere logclean -y -a -j "151${arch}"
   echo
 
-  echo "== Uploading 14.3-RELEASE packages…" >&2
-  upload_packages "14" "143${arch}" "${arch}"
+  echo "== Uploading 14.4-RELEASE packages…" >&2
+  upload_packages "14" "144${arch}" "${arch}"
   echo
 
-  echo "== Uploading 15.0-RELEASE packages…" >&2
-  upload_packages "15" "150${arch}" "${arch}"
+  echo "== Uploading 15.1-RELEASE packages…" >&2
+  upload_packages "15" "151${arch}" "${arch}"
   echo
 }
 

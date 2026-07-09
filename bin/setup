@@ -63,18 +63,18 @@ main() {
     echo "Creating port: postgres…            [skipped]" >&2
   fi
 
-  if ! echo "${jails}" | grep -q "14.3-RELEASE"; then
-    echo "Creating jail: 14.3-RELEASE…" >&2
-    create_jail "14.3-RELEASE" "143${arch}" "${jail_arch}"
+  if ! echo "${jails}" | grep -q "14.4-RELEASE"; then
+    echo "Creating jail: 14.4-RELEASE…" >&2
+    create_jail "14.4-RELEASE" "144${arch}" "${jail_arch}"
   else
-    echo "Creating jail: 14.3-RELEASE…        [skipped]" >&2
+    echo "Creating jail: 14.4-RELEASE…        [skipped]" >&2
   fi
 
-  if ! echo "${jails}" | grep -q "15.0-RELEASE"; then
-    echo "Creating jail: 15.0-RELEASE…" >&2
-    create_jail "15.0-RELEASE" "150${arch}" "${jail_arch}"
+  if ! echo "${jails}" | grep -q "15.1-RELEASE"; then
+    echo "Creating jail: 15.1-RELEASE…" >&2
+    create_jail "15.1-RELEASE" "151${arch}" "${jail_arch}"
   else
-    echo "Creating jail: 15.0-RELEASE…        [skipped]" >&2
+    echo "Creating jail: 15.1-RELEASE…        [skipped]" >&2
   fi
 }
 

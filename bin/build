@@ -10,12 +10,12 @@ main() {
   ./bin/update
   echo
 
-  echo "== Building 14.3-RELEASE…" >&2
-  poudriere bulk -f packages-default -O postgres -j "143${arch}"
+  echo "== Building 14.4-RELEASE…" >&2
+  poudriere bulk -f packages-default -O postgres -j "144${arch}"
   echo
 
-  echo "== Building 15.0-RELEASE…" >&2
-  poudriere bulk -f packages-default -O postgres -j "150${arch}"
+  echo "== Building 15.1-RELEASE…" >&2
+  poudriere bulk -f packages-default -O postgres -j "151${arch}"
 }
 
 main

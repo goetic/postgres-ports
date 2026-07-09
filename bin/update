@@ -11,12 +11,12 @@ main() {
   poudriere ports -u
   echo
 
-  echo "== Updating 14.3-RELEASE jail…" >&2
-  poudriere jail -u -j "143${arch}"
+  echo "== Updating 14.4-RELEASE jail…" >&2
+  poudriere jail -u -j "144${arch}"
   echo
 
-  echo "== Updating 15.0-RELEASE jail…" >&2
-  poudriere jail -u -j "150${arch}"
+  echo "== Updating 15.1-RELEASE jail…" >&2
+  poudriere jail -u -j "151${arch}"
   echo
 }
 
