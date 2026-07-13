@@ -14,7 +14,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 LIB_DEPENDS=	liblz4.so:archivers/liblz4 \
 		libyaml.so:textproc/libyaml
 
-USES=		gnome meson pgsql:17+ pkgconfig python ssl
+USES=		gnome meson pgsql:17 pkgconfig python ssl
 USE_GITHUB=	yes
 USE_GNOME=	libxml2
 
