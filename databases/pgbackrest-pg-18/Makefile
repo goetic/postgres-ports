@@ -2,6 +2,7 @@ PORTNAME=	pgbackrest
 DISTVERSIONPREFIX=	release/
 DISTVERSION=	2.58.0
 CATEGORIES=	databases
+PORTREVISION=	1
 PKGNAMESUFFIX= -pg-18
 
 MAINTAINER=	admin@goetic.dev
@@ -17,6 +18,7 @@ LIB_DEPENDS=	liblz4.so:archivers/liblz4 \
 USES=		gnome meson pgsql:18 pkgconfig python ssl
 USE_GITHUB=	yes
 USE_GNOME=	libxml2
+RUN_DEPENDS+=   postgresql18-client>0:databases/postgresql18-client
 
 MESON_ARGS+=	-Dconfigdir="${ETCDIR}"
 
