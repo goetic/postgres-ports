@@ -13,9 +13,10 @@ LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 LIB_DEPENDS=	liblz4.so:archivers/liblz4 \
-		libyaml.so:textproc/libyaml
+		libyaml.so:textproc/libyaml \
+		libpq.so.5:databases/postgresql17-client
 
-USES=		gnome meson pgsql:17 pkgconfig python ssl
+USES=		gnome meson pgsql:17,build pkgconfig python ssl
 USE_GITHUB=	yes
 USE_GNOME=	libxml2
 RUN_DEPENDS+=   postgresql17-client>0:databases/postgresql17-client
