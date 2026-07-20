@@ -1,9 +1,12 @@
 PORTNAME=	pgbackrest
-DISTVERSIONPREFIX=	release/
-DISTVERSION=	2.58.0
 CATEGORIES=	databases
-PORTREVISION=	1
+DISTVERSIONPREFIX=	release/
 PKGNAMESUFFIX= -pg-17
+PORTREVISION=	0
+PORTVERSION=	2.59.0
+
+MASTER_SITES=	https://github.com/pgbackrest/pgbackrest/releases/download/release%2F${PORTVERSION}/
+DISTNAME=	${PORTNAME}-${PORTVERSION}
 
 MAINTAINER=	admin@goetic.dev
 COMMENT=	Reliable PostgreSQL Backup & Restore
@@ -17,11 +20,10 @@ LIB_DEPENDS=	liblz4.so:archivers/liblz4 \
 		libpq.so.5:databases/postgresql17-client
 
 USES=		gnome meson pgsql:17,build pkgconfig python ssl
-USE_GITHUB=	yes
 USE_GNOME=	libxml2
 RUN_DEPENDS+=   postgresql17-client>0:databases/postgresql17-client
 
-MESON_ARGS+=	-Dconfigdir="${ETCDIR}"
+MESON_ARGS+=	-Dconfigdir="${ETCDIR}" -Dlibsystemd=disabled
 
 BINARY_ALIAS=	python3=${PYTHON_CMD}
 

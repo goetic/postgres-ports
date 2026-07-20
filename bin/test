@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+get_arch() {
+  echo "$(uname -p)"
+}
+
+main() {
+  local arch="$(get_arch)"
+  local package="$1"
+
+  echo "== Testing ${package} in 15.1-RELEASE…" >&2
+  poudriere testport -j "151${arch}" -O postgres -o "${package}"
+  echo
+}
+
+main "$@"
